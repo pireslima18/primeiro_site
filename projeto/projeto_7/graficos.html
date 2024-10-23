@@ -1,0 +1,196 @@
+<style type="text/css">
+	
+	.chart{
+		border: 1px solid #ccc;
+		background: white;
+		margin-bottom: 30px;
+		padding: 10px;
+		max-width: 600px;
+		max-height: 600px;
+		min-width: 200px;
+	}
+
+	.teste{
+		background: black;
+	}
+
+</style>
+
+<div class="container">	
+	<h1>Gráficos</h1>
+	<hr>
+
+  	<canvas id="myChart1" class="chart">a</canvas>
+	
+	<canvas id="myChart2" class="chart"></canvas>
+			
+  	<canvas id="myChart3" class="chart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(()=>{
+		$.ajax({
+			type: 'GET',
+			url: 'getgraficos.php',
+			data: 'acao=graficos',
+			dataType: 'json',
+			success: dados=>{
+				var clienteAtivos = dados.clientesAtivos
+				var clienteInativos = dados.clientesInativos
+
+				var reclamacoes = dados.reclamacoes
+				var elogios = dados.elogios
+				var sugestoes = dados.sugestoes
+
+				var vendasAgosto = dados.totalVendasAgosto
+				var vendasSetembro = dados.totalVendasSetembro
+				var vendasOutubro = dados.totalVendasOutubro
+				
+				var despesasAgosto = dados.totalDespesasAgosto
+				var despesasSetembro = dados.totalDespesasSetembro
+				var despesasOutubro = dados.totalDespesasOutubro
+
+				var ctxPie = $('#myChart1');
+				var ctxBar = $('#myChart2');
+				var ctxLine = $('#myChart3');
+
+				//Pie
+				dataPie = {
+					labels: [
+						'Ativos',
+						'Inativos'
+					],
+					datasets: [{
+						data: [clienteAtivos, clienteInativos],
+						backgroundColor: ['rgba(0, 255, 0, 0.7)', 'rgba(255, 0, 0, 0.7)'],
+
+					}]
+				}
+
+				var cfgPie = {
+					type: 'pie',
+					data: dataPie,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								position: 'top',
+							},
+							title: {
+								display: true,
+								text: 'Clientes',
+							}
+						}
+					}
+				};
+
+				new Chart(ctxPie,cfgPie)
+
+				// Bar
+				var dataBar = {
+					labels: ['-'],
+					datasets: [
+					{
+						label: 'reclamacoes',
+						data: [reclamacoes],
+						backgroundColor: 'rgba(255, 99, 132, 0.5)',
+						borderColor: 'rgb(255, 99, 132)',
+						borderWidth: 1
+					},
+					{
+						label: 'elogios',
+						data: [elogios],
+						backgroundColor: 'rgba(0, 255, 0, 0.5)',
+						borderColor: 'rgb(0, 255, 0)',
+						borderWidth: 1
+					},
+					{
+						label: 'sugestoes',
+						data: [sugestoes],
+						backgroundColor: 'rgba(251, 255, 0, 0.5)',
+						borderColor: 'rgb(251, 255, 0)',
+						borderWidth: 1
+					}]
+				}
+				var cfgBar = {
+					type: 'bar',
+					data: dataBar,
+					options: {
+						//responsive: true,
+						indexAxis: 'y',
+						scales: {
+							y: {
+								beginAtZero: true
+							},
+						},
+						plugins: {
+							legend: {
+								position: 'top',
+							},
+							title: {
+								display: true,
+								text: 'Avaliações'
+							}
+						}
+					},
+				};
+
+				new Chart(ctxBar,cfgBar)
+
+				// Line
+				var dataLine = {
+					labels: ['Abr', 'Maio', 'Jun'],
+					datasets: [
+						{
+							label: 'Vendas',
+							data: [vendasAgosto, vendasSetembro, vendasOutubro],
+							borderColor: 'rgb(0,255,0)',
+							backgroundColor: 'rgb(0,255,0)'
+						},
+						{
+							label: 'Despesas',
+							data: [despesasAgosto, despesasSetembro, despesasOutubro],
+							borderColor: 'rgb(255,0,0)',
+							backgroundColor: 'rgb(255,0,0)'
+						}]
+				};
+
+
+
+
+
+				var cfgLine = {
+					type: 'line',
+					data: dataLine,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								position: 'top',
+							},
+							title: {
+								display: true,
+								text: 'Vendas X Despesas'
+							}
+						}
+					},
+				};
+
+				new Chart(ctxLine, cfgLine)
+
+			},
+
+			error: ()=>{
+				console.log('error1')
+			}
+		})
+	})
+
+
+	
+
+	</script>
+	

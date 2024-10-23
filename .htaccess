@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /site_suamelhorface/
+
+  # Redireciona /index.php para /
+  RewriteCond %{REQUEST_URI} ^/site_suamelhorface/index\.php$
+  RewriteRule ^(.*)$ /site_suamelhorface/ [R=301,L]
+
+  # Redireciona /projeto/index.html para /projeto/
+  RewriteCond %{REQUEST_URI} ^/site_suamelhorface/projeto/index\.html$
+  RewriteRule ^(.*)$ /site_suamelhorface/projeto/ [R=301,L]
+
+  # Redireciona /projeto/projeto_7/index.html para /projeto/projeto_7/
+  RewriteCond %{REQUEST_URI} ^/site_suamelhorface/projeto/projeto_7/index\.html$
+  RewriteRule ^(.*)$ /site_suamelhorface/projeto/projeto_7/ [R=301,L]
+
+  # Redireciona /projeto/projeto_6/index.php para /projeto/projeto_6/
+  RewriteCond %{REQUEST_URI} ^/site_suamelhorface/projeto/projeto_6/index\.php$
+  RewriteRule ^(.*)$ /site_suamelhorface/projeto/projeto_6/ [R=301,L]
+
+  # Redireciona /projeto/projeto_5/index.html para /projeto/projeto_5/
+  RewriteCond %{REQUEST_URI} ^/site_suamelhorface/projeto/projeto_5/index\.html$
+  RewriteRule ^(.*)$ /site_suamelhorface/projeto/projeto_5/ [R=301,L]
+
+  # Redireciona /projeto/projeto_9/index.php para /projeto/projeto_9/
+  RewriteCond %{REQUEST_URI} ^/site_suamelhorface/projeto/projeto_9/index\.php$
+  RewriteRule ^(.*)$ /site_suamelhorface/projeto/projeto_9/ [R=301,L]
+
+</IfModule>
